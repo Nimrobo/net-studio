@@ -32,6 +32,11 @@ export function loadConfig(): NimroboConfig | null {
 }
 
 export function getApiKey(): string | null {
+  // Check environment variable first (allows hard-coding)
+  if (process.env.NIMROBO_API_KEY) {
+    return process.env.NIMROBO_API_KEY;
+  }
+  // Fall back to config file
   const config = loadConfig();
   return config?.API_KEY ?? null;
 }

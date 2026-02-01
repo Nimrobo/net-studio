@@ -16,21 +16,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // First check localStorage for any manually set token
+    // Use localStorage for initial render to avoid flicker
     const storedToken = localStorage.getItem('nimrobo_token');
     if (storedToken) {
       setTokenState(storedToken);
-      setIsLoading(false);
-      return;
     }
 
-    // Then try to load from server (reads ~/.nimrobo/config.json)
+    // Always fetch from server to get latest config
     fetch('/api/config')
       .then((res) => res.json())
       .then((data) => {
         if (data.apiKey) {
           setTokenState(data.apiKey);
           localStorage.setItem('nimrobo_token', data.apiKey);
+        } else {
+          // Server has no key, clear local cache
+          setTokenState(null);
+          localStorage.removeItem('nimrobo_token');
         }
       })
       .catch(console.error)
