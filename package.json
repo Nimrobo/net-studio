@@ -1,7 +1,18 @@
 {
-  "name": "net-studio",
+  "name": "@nimrobo/net-studio",
   "version": "0.1.0",
-  "private": true,
+  "bin": {
+    "net-studio": "./bin/net-studio.js"
+  },
+  "files": [
+    "bin",
+    ".next",
+    "public",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
