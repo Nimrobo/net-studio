@@ -255,7 +255,7 @@ export default function PostDetailPage() {
                 {showApplyForm ? (
                   <form onSubmit={handleApply}>
                     <Textarea
-                      label="Cover Letter (optional)"
+                      label="Note (optional)"
                       value={applicationContent}
                       onChange={(e) => setApplicationContent(e.target.value)}
                       placeholder="Tell them why you're a great fit..."
